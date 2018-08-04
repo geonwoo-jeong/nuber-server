@@ -20,6 +20,7 @@ type Query {
   sayHello: String!
   GetMyPlaces: GetMyPlaceResponse
   GetMyProfile: GetMyProfileResponse!
+  GetNearbyDrivers: GetNearbyDriversResponse!
 }
 
 type AddPlaceResponse {
@@ -123,6 +124,12 @@ type GetMyProfileResponse {
   ok: Boolean!
   error: String
   user: User
+}
+
+type GetNearbyDriversResponse {
+  ok: Boolean!
+  error: String
+  drivers: [User]
 }
 
 type ReportMovementResponse {
