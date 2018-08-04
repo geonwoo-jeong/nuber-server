@@ -28,6 +28,7 @@ type AddPlaceResponse {
 
 type Mutation {
   AddPlace(name: String!, lat: Float!, lng: Float!, address: String!, isFav: Boolean!): AddPlaceResponse!
+  DeletePlace(placeId: Int!): DeletePlaceResponse!
   EditPlace(placeId: Int!, name: String, isFav: Boolean): EditPlaceResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
@@ -39,6 +40,11 @@ type Mutation {
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
   ToggleDrivingMode: ToggleDrivingModeResponse!
   UpdateMyProfile(firstName: String, lastName: String, email: String, password: String, profilePhoto: String, age: Int): UpdateMyProfileResponse!
+}
+
+type DeletePlaceResponse {
+  ok: Boolean!
+  error: String
 }
 
 type EditPlaceResponse {
@@ -53,6 +59,7 @@ type Place {
   lng: Float!
   address: String!
   isFav: Boolean!
+  userId: Int!
   user: User!
   createdAt: String!
   updatedAt: String
