@@ -2,7 +2,6 @@ import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
 import { RequestRideResponse, RequestRideMutationArgs } from "../../../types/graph";
 import User from "../../../entities/User";
-import Message from "../../../entities/Message";
 import Ride from "../../../entities/Ride";
 
 const resolvers: Resolvers = {
@@ -24,7 +23,7 @@ const resolvers: Resolvers = {
         } catch(error) {
           return {
             ok: false,
-            error: error.Message,
+            error: error.message,
             ride: null
           }
         }
