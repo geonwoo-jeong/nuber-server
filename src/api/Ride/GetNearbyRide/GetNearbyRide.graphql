@@ -1,9 +1,9 @@
-type GetNearByRideResponse {
+type GetNearbyRideResponse {
   ok: Boolean!
   error: String
   ride: Ride
 }
 
 type Query {
-  GetNearByRide: GetNearByRideResponse!
+  GetNearbyRide: GetNearbyRideResponse!
 }

@@ -1,18 +1,14 @@
 import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
-import { GetNearByRideResponse } from "../../../types/graph";
 import User from "../../../entities/User";
 import { getRepository, Between } from "../../../../node_modules/typeorm";
 import Ride from "../../../entities/Ride";
+import { GetNearbyRideResponse } from "../../../types/graph";
 
 const resolvers: Resolvers = {
   Query: {
     GetNearbyRide: privateResolver(
-      async(
-        _,
-        __,
-        { req }
-      ):Promise<GetNearByRideResponse> => {
+      async(_, __, { req }):Promise<GetNearbyRideResponse> => {
         const user : User = req.user;
         if (user.isDriving) {
           const { lastLat, lastLng } = user;
