@@ -55,7 +55,7 @@ type GetMyPlaceResponse {
 
 type Query {
   GetMyPlaces: GetMyPlaceResponse
-  GetNearByRides: GetNearByRidesResponse!
+  GetNearByRide: GetNearByRideResponse!
   GetMyProfile: GetMyProfileResponse!
   GetNearbyDrivers: GetNearbyDriversResponse!
 }
@@ -73,10 +73,10 @@ type Place {
   updatedAt: String
 }
 
-type GetNearByRidesResponse {
+type GetNearByRideResponse {
   ok: Boolean!
   error: String
-  rides: [Ride]
+  ride: Ride
 }
 
 type RequestRideResponse {
