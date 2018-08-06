@@ -5,7 +5,7 @@ import {
   Column, 
   Entity, 
   PrimaryGeneratedColumn,
-  ManyToMany, 
+  ManyToOne, 
 } from "typeorm";
 import { rideStatus } from "../types/types";
 import User from "./User";
@@ -18,7 +18,7 @@ class Ride extends BaseEntity {
   @Column({ 
     type: "text", 
     enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING", "ONROUTE"],
-    default: "ACCEPTED"
+    default: "REQUESTING"
   })
   status: rideStatus;
 
@@ -49,10 +49,16 @@ class Ride extends BaseEntity {
   @Column({ type: "double precision", default: 0 })
   price: number;
 
-  @ManyToMany(type => User, user => user.ridesAsPassenger)
+  @Column({ nullable: true })
+  passengerId: number;
+
+  @ManyToOne(type => User, user => user.ridesAsPassenger)
   passenger: User;
 
-  @ManyToMany(type => User, user => user.ridesAsDriver, { nullable: true })
+  @Column({ nullable: true })
+  driverId: number;
+
+  @ManyToOne(type => User, user => user.ridesAsDriver, { nullable: true })
   driver: User;
 
   @CreateDateColumn()
