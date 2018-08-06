@@ -1,6 +1,6 @@
 export type verificationTarget = "PHONE" | "EMAIL";
 export type rideStatus = 
-  | "ACCEPT" 
+  | "ACCEPTED" 
   | "FINISHED" 
   | "CANCELED" 
   | "REQUESTING" 
