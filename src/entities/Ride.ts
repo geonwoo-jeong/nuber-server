@@ -5,10 +5,13 @@ import {
   Column, 
   Entity, 
   PrimaryGeneratedColumn,
-  ManyToOne, 
+  ManyToOne,
+  OneToOne,
+  JoinColumn, 
 } from "typeorm";
 import { rideStatus } from "../types/types";
 import User from "./User";
+import Chat from "./Chat";
 
 @Entity()
 class Ride extends BaseEntity {
@@ -60,6 +63,13 @@ class Ride extends BaseEntity {
 
   @ManyToOne(type => User, user => user.ridesAsDriver, { nullable: true })
   driver: User;
+
+  @Column({ nullable: true })
+  chatId: number;
+
+  @OneToOne(type => Chat, chat => chat.ride, { nullable: true })
+  @JoinColumn()
+  chat: Chat
 
   @CreateDateColumn()
   createdAt: string;
