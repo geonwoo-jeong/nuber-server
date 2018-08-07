@@ -14,9 +14,12 @@ const resolvers: Resolvers = {
      ): Promise<GetChatResponse> => {
       const user : User = req.user;
       try {
-        const chat = await Chat.findOne({
+        const chat = await Chat.findOne(
+          {
           id: args.chatId
-        })
+          },
+          { relations: ["message"]}
+        )
         if (chat) {
           if (chat.passengerId === user.id || chat.driverId === user.id) {
             return {
