@@ -38,3 +38,6 @@ const handleAppStart = () => console.log(`Listening on port ${PORT}`);
 createConnection(connectionOptions).then(() => {
   app.start(appOptions, handleAppStart);
 });
+
+// need fix report movement resolver (server)
+// because does not work nearby driver function

@@ -1,4 +1,4 @@
-import { withFilter } from "../../../../node_modules/graphql-yoga";
+import { withFilter } from "graphql-yoga";
 import User from "../../../entities/User";
 
 const resolvers = {
@@ -7,11 +7,11 @@ const resolvers = {
       subscribe: withFilter(
         (_, __, { pubSub }) => pubSub.asyncIterator("driverUpdate"),
         (payload, _, { context }) => {
-          const user : User = context.currentUser;
-          const { 
-            DriverSubscription : { 
-              lastLat: driverLastLat, 
-              lastLng: driverLastLng 
+          const user: User = context.currentUser;
+          const {
+            DriversSubscription: {
+              lastLat: driverLastLat,
+              lastLng: driverLastLng
             }
           } = payload;
           const { lastLat: userLastLat, lastLng: userLastLng } = user;
@@ -25,6 +25,5 @@ const resolvers = {
       )
     }
   }
-}
-
+};
 export default resolvers;
