@@ -1,19 +1,22 @@
 import { Resolvers } from "../../../types/resolvers";
 import privateResolver from "../../../utils/privateResolver";
 import User from "../../../entities/User";
-import { UpdateRideStatusResponse, UpdateRideStatusMutationArgs } from "../../../types/graph";
+import {
+  UpdateRideStatusResponse,
+  UpdateRideStatusMutationArgs
+} from "../../../types/graph";
 import Ride from "../../../entities/Ride";
 import Chat from "../../../entities/Chat";
 
 const resolvers: Resolvers = {
   Mutation: {
     UpdateRideStatus: privateResolver(
-      async(
+      async (
         _,
-        args : UpdateRideStatusMutationArgs,
+        args: UpdateRideStatusMutationArgs,
         { req, pubSub }
       ): Promise<UpdateRideStatusResponse> => {
-        const user : User = req.user;
+        const user: User = req.user;
         if (user.isDriving) {
           try {
             let ride: Ride | undefined;
@@ -40,37 +43,41 @@ const resolvers: Resolvers = {
               ride = await Ride.findOne({
                 id: args.rideId,
                 driver: user
-              })
+              });
             }
             if (ride) {
               ride.status = args.status;
               ride.save();
-              pubSub.publish("rideUpdate", { RideStatusSubscription: ride })
+              pubSub.publish("rideUpdate", { RideStatusSubscription: ride });
               return {
                 ok: true,
-                error: null
-              }
+                error: null,
+                rideId: ride.id
+              };
             } else {
               return {
                 ok: false,
-                error: "Cant' update ride"
-              }
+                error: "Cant' update ride",
+                rideId: null
+              };
             }
-          } catch(error) {
+          } catch (error) {
             return {
               ok: false,
-              error: error.message
-            }
+              error: error.message,
+              rideId: null
+            };
           }
         } else {
           return {
             ok: false,
-            error: "You are not driving"
-          }
+            error: "You are not driving",
+            rideId: null
+          };
         }
       }
     )
   }
-}
+};
 
 export default resolvers;
