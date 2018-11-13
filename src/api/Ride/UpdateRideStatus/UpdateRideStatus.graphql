@@ -7,7 +7,7 @@ type UpdateRideStatusResponse {
 enum StatusOptions {
   ACCEPTED
   FINISHED
-  CANCLED
+  CANCELED
   REQUESTING
   ONROUTE
 }
